@@ -6,6 +6,8 @@ ADD nginx_signing.key /tmp/nginx.key
 RUN \
       apt-get update &&\
       apt-get install -y gnupg && \
+      apt-get install -y curl && \
+      curl -fsSL https://nginx.org/keys/nginx_signing.key | tee /etc/apt/trusted.gpg.d/nginx.asc && \
       apt-key add /tmp/nginx.key && \
       echo "deb http://nginx.org/packages/debian/ bookworm nginx" >> /etc/apt/sources.list && \
       echo "deb-src http://nginx.org/packages/debian/ bookworm nginx" >> /etc/apt/sources.list && \
